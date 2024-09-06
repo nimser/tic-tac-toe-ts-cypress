@@ -29,7 +29,23 @@ describe("App.cy.tsx", () => {
     cy.getByData("cell-2-2").contains("0")
   })
 
-  xit("should say player 1 wins", () => {})
-  xit("should say player 2 wins", () => {})
+  it("should say player 1 wins", () => {
+    cy.getByData("cell-0-0").click()
+    cy.getByData("cell-1-1").click()
+    cy.getByData("cell-0-1").click()
+    cy.getByData("cell-2-2").click()
+    cy.getByData("cell-0-2").click()
+    cy.contains("Player 1 WINS")
+  })
+  it("should say player 2 wins", () => {
+    cy.getByData("cell-0-1").click()
+    cy.getByData("cell-0-0").click()
+    cy.getByData("cell-0-2").click()
+    cy.getByData("cell-2-2").click()
+    cy.getByData("cell-1-0").click()
+    cy.getByData("cell-1-1").click()
+
+    cy.contains("Player 2 WINS")
+  })
   xit("should prevent playing after player won", () => {})
 })

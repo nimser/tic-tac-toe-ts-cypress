@@ -1,7 +1,7 @@
 import "./App.css"
 import { useEffect, useState } from "react"
-
-type Coordinates = [0 | 1 | 2, 0 | 1 | 2]
+type CoordValue = 0 | 1 | 2
+type Coordinates = [CoordValue, CoordValue]
 type Triplet = [Coordinates, Coordinates, Coordinates]
 
 const WINNING_CASES: Triplet[] = [
@@ -56,14 +56,17 @@ function App() {
   })
 
   const [turn, setTurn] = useState(true)
-  // fixme - Use a Set
   const [crosses, setCrosses] = useState<Array<Coordinates>>([])
   const [circles, setCircles] = useState<Array<Coordinates>>([])
   const [winner, setWinner] = useState<string | null>(null)
 
-  const handleClick = (selectedPosition: Coordinates) => {
-    ;(turn ? setCrosses : setCircles)((old) => [...old, selectedPosition])
-    setTurn(!turn)
+  const handleClick = (selected: Coordinates) => {
+    if (
+      [...crosses, ...circles].some((pos) => match(pos, selected)) === false
+    ) {
+      ;(turn ? setCrosses : setCircles)((old) => [...old, selected])
+      setTurn(!turn)
+    }
   }
 
   const determineWinner = () => {
@@ -74,7 +77,6 @@ function App() {
         )
       )
     )
-    console.log(winnerIndex)
     if (winnerIndex === 0) setWinner("Player 1")
     if (winnerIndex === 1) setWinner("Player 2")
   }
@@ -83,9 +85,8 @@ function App() {
     (crosses.some((it) => match(it, target)) && "X") ||
     (circles.some((it) => match(it, target)) && "O")
 
-  if (winner) {
-    return <h1>{`${winner} WINS`}</h1>
-  }
+  if (winner) return <h1>{`${winner} WINS`}</h1>
+
   return (
     <div data-test="grid" className="container">
       {Array.from(Array(9)).map((_, i) => {

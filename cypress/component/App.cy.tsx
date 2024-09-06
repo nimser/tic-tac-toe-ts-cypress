@@ -20,13 +20,13 @@ describe("App.cy.tsx", () => {
     cy.getByData("cell-2-2").click()
     cy.getByData("cell-2-2").contains("O")
   })
-  xit("should prevent ticking a previously ticked cell", () => {
+  it("should prevent ticking a previously ticked cell", () => {
     cy.getByData("cell-1-2").click()
     cy.getByData("cell-1-2").contains("X")
     cy.getByData("cell-2-2").click()
-    cy.getByData("cell-2-2").contains("0")
+    cy.getByData("cell-2-2").contains("O")
     cy.getByData("cell-2-2").click()
-    cy.getByData("cell-2-2").contains("0")
+    cy.getByData("cell-2-2").contains("O")
   })
 
   it("should say player 1 wins", () => {
@@ -47,5 +47,4 @@ describe("App.cy.tsx", () => {
 
     cy.contains("Player 2 WINS")
   })
-  xit("should prevent playing after player won", () => {})
 })

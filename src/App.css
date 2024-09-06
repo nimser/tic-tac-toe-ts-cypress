@@ -1,0 +1,21 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+div.container {
+  display: grid;
+  height: 50vh;
+  width: 50vh;
+  background-color: cadetblue;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+
+  > div {
+    place-items: center;
+    display: grid;
+    border: 3px dotted burlywood;
+  }
+}
